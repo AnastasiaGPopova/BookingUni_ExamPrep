@@ -12,6 +12,7 @@ exports.authentication = async (req, res, next) => {
         req.authenticated = true
         res.locals.username = decodedToken.username
         res.locals.isAuthenticated = true
+        console.log(decodedToken)
 
         } catch(err){
             console.log(err.message)

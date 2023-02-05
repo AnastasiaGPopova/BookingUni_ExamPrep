@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
 const hotelSchema = new mongoose.Schema({
-    title: {
+    Name: {
         type: String,
         required: true,
     }, 
-    description: {
+    city: {
         type: String,
         required: true,
         minLength: 20,
@@ -23,18 +23,19 @@ const hotelSchema = new mongoose.Schema({
         }
 
     }, 
-    duration: {
+    freeRooms: {
         type: String,
         required: true,
     },
-    createdAt: {
-        type: Date, default: Date.now
-    },
+    bookedByUsers: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'User'
+    }],
     owner: {
         type:mongoose.Types.ObjectId,
         ref: 'User'
     },
-    usersEnrolled:[{
+    offeredHotels:[{
         type: mongoose.Types.ObjectId,
         ref: 'User'
     }],

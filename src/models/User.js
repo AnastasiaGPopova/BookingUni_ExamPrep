@@ -2,6 +2,10 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
+    email: {
+        type: String,
+        required: true,
+    },
     username:{
         type: String,
         match: /^[A-Za-z0-9]*$/,
@@ -13,6 +17,14 @@ const userSchema = new mongoose.Schema({
         match: /^[A-Za-z0-9]*$/,
         required: true,
         minLength: [5, 'Password too short!']
+    },
+    bookedHotels: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Hotel'
+    },
+    offeredHotels: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Hotel'
     }
  })
 

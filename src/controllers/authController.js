@@ -9,17 +9,18 @@ exports.registerPage = (req,res) => {
 }
 
 exports.postRegisterUser = async (req, res) => {
-    const {username, password, rePassword} = req.body
+    const {email, username, password, rePassword} = req.body
     if(password !== rePassword) {
         return res.redirect('/404')
     }
-    const existingUser = await authService.getUserByUsername(username)
+    const existingUserName = await authService.getUserByUsername(username)
+    const existingUserEmail = await authService.getUserByEmail(email)
 
-    if(existingUser){
-        return res.redirect('/404')
+    if(existingUserName || existingUserEmail){
+        throw new Error("Username or Email are taken!")
     }
 
-    const token = await authService.register(username, password)
+    const token = await authService.register(email, username, password)
     res.cookie('auth', token, {httpOnly: true})
     res.redirect('/')
 }
