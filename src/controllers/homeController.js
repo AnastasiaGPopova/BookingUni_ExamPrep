@@ -1,9 +1,10 @@
 const Hotel = require('../models/Hotel.js')
+const hotelService = require('../services/hotelService')
 
 
 exports.getHomePage = async (req, res) => {
-
-        res.render('home')
+    const allHotels = await hotelService.getAllHotels().lean()
+        res.render('home', {allHotels})
 }
 
 

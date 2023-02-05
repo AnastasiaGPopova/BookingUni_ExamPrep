@@ -27,7 +27,7 @@ router.post('/login', authController.postLoginUser)
 router.get('/hotel/create', isAuthenticated, hotelController.getHotelCreationPage)
 router.post('/hotel/create', isAuthenticated, hotelController.postCreatedHotel)
 
-router.get('/course/:hotelId/details', hotelController.getDetails)
+// router.get('/course/:hotelId/details', hotelController.getDetails)
 
 // //Edit Page
 // router.get('/course/:hotelId/edit', isAuthenticated, hotelController.)
