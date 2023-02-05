@@ -32,14 +32,14 @@ router.get('/hotel/:hotelId/details', isAuthenticated, hotelController.getDetail
 
 
 //Book
-router.get('/hotel/:hotelId/book', hotelController.getBooked)
+router.get('/hotel/:hotelId/book', isAuthenticated, hotelController.getBooked)
 
 ///Profile page
-router.get('/profile', homeController.getProfilePage)
+router.get('/profile', isAuthenticated, homeController.getProfilePage)
 
 
 // //Edit Page
-router.get('/hotel/:hotelId/edit', hotelController.getEditHotelPage)
+router.get('/hotel/:hotelId/edit', isAuthenticated,  hotelController.getEditHotelPage)
 router.post('/hotel/:hotelId/edit', isAuthenticated, hotelController.postEditedHotel)
 
 // //Delete Hotel

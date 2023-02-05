@@ -109,7 +109,7 @@ exports.postEditedHotel = async (req,res) => {
 
 }
 
-// exports.getDeletedCubePage = async (req, res) => {
+// exports.getDeletedPage = async (req, res) => {
 //     const tutorial = await hotelService.getOneCube(req.params.courseId).lean()
 //     if(!courseUtils.isTutorialOwner(req.user, tutorial)){
 //         res.redirect('/404')
@@ -127,12 +127,3 @@ exports.postEditedHotel = async (req,res) => {
 //    res.redirect('/')
 // }
 
-// exports.postEnrollCourse = async (req, res) => {
-//     const enrolledUser = req.user._id
-//     console.log(enrolledUser)
-//     const tutorial = await hotelService.getOneCourse(req.params.courseId)
-//     tutorial.usersEnrolled.push(enrolledUser)
-//     await tutorial.save()
- 
-//     res.redirect(`/course/${req.params.courseId}/details`)
-// }
