@@ -43,8 +43,7 @@ router.get('/hotel/:hotelId/edit', isAuthenticated,  hotelController.getEditHote
 router.post('/hotel/:hotelId/edit', isAuthenticated, hotelController.postEditedHotel)
 
 // //Delete Hotel
-//router.post('/course/:hotelId/delete', hotelController.postDeleteCourse)
-
+router.get('/hotel/:hotelId/delete', hotelController.getDeleteHotel)
 
 
 router.get('/logout', authController.logout)

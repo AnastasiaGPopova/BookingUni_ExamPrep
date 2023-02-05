@@ -70,6 +70,8 @@ exports.getEditHotelPage = async (req, res) => {
 
     try{
         const hotel = await hotelService.getOneHotelByID(req.params.hotelId).lean()
+
+        //if it owner
         if(!hotelUtility.isHotelOwner(req.user, hotel)){
             res.redirect('/')
         }
@@ -109,21 +111,18 @@ exports.postEditedHotel = async (req,res) => {
 
 }
 
-// exports.getDeletedPage = async (req, res) => {
-//     const tutorial = await hotelService.getOneCube(req.params.courseId).lean()
-//     if(!courseUtils.isTutorialOwner(req.user, tutorial)){
-//         res.redirect('/404')
-//     }
-
-//     res.render('edit', {tutorial})
-// }
 
 
-// exports.postDeleteCourse = async (req, res) => {
-//     if(!courseUtils.isTutorialOwner(req.user, tutorial)){
-//         res.redirect('/404')
-//     }
-//    await hotelService.deleteCourse(req.params.courseId)
-//    res.redirect('/')
-// }
+exports.getDeleteHotel = async (req, res) => {
+    const hotel = await hotelService.getOneHotelByID(req.params.hotelId)
+
+    if(!hotelUtility.isHotelOwner(req.user, hotel)){
+        res.redirect('/')
+    }
+   const test = await hotelService.deleteHotel(req.params.hotelId)
+   console.log(test)
+
+
+   res.redirect('/')
+}
 
