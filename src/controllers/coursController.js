@@ -1,4 +1,4 @@
-const Tutorial = require('../models/Tutorial.js')
+const Tutorial = require('../models/Hotel.js')
 const courceService = require('../services/courceService.js')
 const courseUtils = require('../utils/courseUtils.js')
 

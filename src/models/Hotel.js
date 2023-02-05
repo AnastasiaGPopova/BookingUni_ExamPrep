@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-const tutorialSchema = new mongoose.Schema({
+const hotelSchema = new mongoose.Schema({
     title: {
         type: String,
         required: true,
@@ -40,5 +40,5 @@ const tutorialSchema = new mongoose.Schema({
     }],
 })
 
-const Tutorial = mongoose.model('Tutorial', tutorialSchema)
-module.exports = Tutorial
+const Hotel = mongoose.model('Hotel', hotelSchema)
+module.exports = Hotel

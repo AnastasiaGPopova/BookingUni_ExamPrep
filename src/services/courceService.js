@@ -1,4 +1,4 @@
-const Tutorial = require('../models/Tutorial')
+const Tutorial = require('../models/Hotel')
 
 exports.getOneCourse = (couseId) => Tutorial.findById(couseId)
 exports.update = (courseId, data) => Tutorial.findByIdAndUpdate(courseId, data, {runValidators: true})

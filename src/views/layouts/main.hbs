@@ -16,17 +16,17 @@
             <div class="left-container">
                 <ul>
                     {{#if  isAuthenticated}}
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Add +</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/create">Add +</a></li>
             <div class="right-container">
-                <a href="" class="log-out">{{name}}</a>
+                <a href="/logout" class="log-out">{{name}}</a>
                 <a href="" class="log-out">Logout</a>
             </div>
 
                     {{else}}
-                    <li><a href="">Home</a></li>
-                    <li><a href="">Login</a></li>
-                    <li><a href="">Register</a></li>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/register">Register</a></li>
                     {{/if}}
                 </ul>
             </div>
