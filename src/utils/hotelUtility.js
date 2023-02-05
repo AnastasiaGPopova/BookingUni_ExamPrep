@@ -1,8 +1,8 @@
 const Hotel = require('../models/Hotel.js')
-exports.isHotelOwner = (user, course) => {
+exports.isHotelOwner = (user, hotel) => {
     let isOwner = false
     if(user){
-        if(user._id == course.owner._id){
+        if(user._id == hotel.owner._id){
             isOwner = true
         }
     }

@@ -65,17 +65,49 @@ exports.getBooked = async (req, res) => {
 
 }
 
-// exports.getEditCoursePage = async (req, res) => {
+exports.getEditHotelPage = async (req, res) => {
 
-//     const tutorial = await hotelService.getOneCourse(req.params.courseId).lean()
 
-//     if(!courseUtils.isTutorialOwner(req.user, tutorial)){
-//         res.redirect('/404')
-//     }
+    try{
+        const hotel = await hotelService.getOneHotelByID(req.params.hotelId).lean()
+        if(!hotelUtility.isHotelOwner(req.user, hotel)){
+            res.redirect('/')
+        }
+        
+        res.render('edit', {hotel})
 
-//     res.render('edit', {tutorial})
+    } catch(error){
+        const errors = parser.parseError(error)
+        res.render('create', {errors, body: req.body.username})
+    }
 
-// }
+}
+
+
+exports.postEditedHotel = async (req,res) => {
+
+    const name = req.body.hotel
+    const city = req.body.city
+    const freeRooms = req.body["free-rooms"]
+    const imageUrl = req.body.imgUrl
+
+    try{
+        if(!name || !city || !freeRooms || !imageUrl){
+            throw new Error ("All fields are requiered!")
+        }
+        const updatedHotel = await hotelService.update(req.params.hotelId, {name, city, imageUrl, freeRooms})
+
+        //redirect
+        res.redirect(`/hotel/${req.params.hotelId}/details`)
+
+    } catch(error){
+        const errors = parser.parseError(error)
+        res.render('create', {errors, body: req.body.username})
+    }
+
+
+
+}
 
 // exports.getDeletedCubePage = async (req, res) => {
 //     const tutorial = await hotelService.getOneCube(req.params.courseId).lean()
@@ -86,14 +118,6 @@ exports.getBooked = async (req, res) => {
 //     res.render('edit', {tutorial})
 // }
 
-// exports.postEditedCourse = async (req,res) => {
-
-//     const { title, description, imageUrl , duration } = req.body
-//     await hotelService.update(req.params.courseId, { title, description, imageUrl , duration, owner: req.user._id })
-
-//     res.redirect(`/course/${req.params.courseId}/details`)
-
-// }
 
 // exports.postDeleteCourse = async (req, res) => {
 //     if(!courseUtils.isTutorialOwner(req.user, tutorial)){

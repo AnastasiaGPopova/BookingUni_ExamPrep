@@ -27,25 +27,23 @@ router.post('/login', authController.postLoginUser)
 router.get('/hotel/create', isAuthenticated, hotelController.getHotelCreationPage)
 router.post('/hotel/create', isAuthenticated, hotelController.postCreatedHotel)
 
-
+//Details Page
 router.get('/hotel/:hotelId/details', isAuthenticated, hotelController.getDetails)
 
 
-
+//Book
 router.get('/hotel/:hotelId/book', hotelController.getBooked)
 
+///Profile page
 router.get('/profile', homeController.getProfilePage)
 
 
 // //Edit Page
-// router.get('/course/:hotelId/edit', isAuthenticated, hotelController.)
-// router.post('/course/:hotelId/edit', isAuthenticated,hotelController.)
+router.get('/hotel/:hotelId/edit', hotelController.getEditHotelPage)
+router.post('/hotel/:hotelId/edit', isAuthenticated, hotelController.postEditedHotel)
 
-// //Delete Course
-// router.post('/course/:hotelId/delete', hotelController.postDeleteCourse)
-
-// //Enroll Course
-// router.get('/course/:hotelId/enroll', hotelController.postEnrollCourse)
+// //Delete Hotel
+//router.post('/course/:hotelId/delete', hotelController.postDeleteCourse)
 
 
 
