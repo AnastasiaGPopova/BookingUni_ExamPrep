@@ -1,4 +1,4 @@
-const Tutorial = require('../models/Hotel.js')
+const Hotel = require('../models/Hotel.js')
 
 
 exports.getHomePage = async (req, res) => {

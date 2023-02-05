@@ -14,14 +14,13 @@ exports.register = async (email, username, plainPassword) => {
 
 } 
 
-exports.login = async (username, password) => {
-    const existingUser = await this.getUserByUsername(username)
-    const isValid = await existingUser.validatePassword(password)
+exports.login = async (existingUser, password) => {
+   const isValid = await existingUser.validatePassword(password)
 
-    if(!existingUser || !isValid){ //we call the modell method
-      throw "Invalid username or password!"
+   if(!isValid){
+      throw new Error("Invalid username or password!")
    }
-
+  
    const payLoad = {_id: existingUser._id, email: existingUser.email, username: existingUser.username}
    const token = await jwt.sign(payLoad, config.SECRET, {expiresIn: '2h'})
 

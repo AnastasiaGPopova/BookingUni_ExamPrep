@@ -1,14 +1,14 @@
 const Tutorial = require('../models/Hotel.js')
-const courceService = require('../services/courceService.js')
-const courseUtils = require('../utils/courseUtils.js')
+const hotelService = require('../services/hotelService.js')
+const hotelUtility = require('../utils/hotelUtility.js')
 
 
 
-exports.getCourseCreation = (req,res) => {
+exports.getHotelCreationPage = (req,res) => {
     res.render('create')
 }
 
-exports.postCreateCourse = async (req, res) => {
+exports.postCreatedHotel = async (req, res) => {
 
     const { title, description, imageUrl , duration } = req.body
     let tutorial = new Tutorial({title, description, imageUrl , duration, owner: req.user._id})//encoded body-to, which we receive, will create a new cube
@@ -50,19 +50,18 @@ exports.getDetails = async (req, res) => {
 
 exports.getEditCoursePage = async (req, res) => {
 
-    const tutorial = await courceService.getOneCourse(req.params.courseId).lean()
+    const tutorial = await hotelService.getOneCourse(req.params.courseId).lean()
 
     if(!courseUtils.isTutorialOwner(req.user, tutorial)){
         res.redirect('/404')
     }
-
 
     res.render('edit', {tutorial})
 
 }
 
 exports.getDeletedCubePage = async (req, res) => {
-    const tutorial = await courceService.getOneCube(req.params.courseId).lean()
+    const tutorial = await hotelService.getOneCube(req.params.courseId).lean()
     if(!courseUtils.isTutorialOwner(req.user, tutorial)){
         res.redirect('/404')
     }
@@ -73,7 +72,7 @@ exports.getDeletedCubePage = async (req, res) => {
 exports.postEditedCourse = async (req,res) => {
 
     const { title, description, imageUrl , duration } = req.body
-    await courceService.update(req.params.courseId, { title, description, imageUrl , duration, owner: req.user._id })
+    await hotelService.update(req.params.courseId, { title, description, imageUrl , duration, owner: req.user._id })
 
     res.redirect(`/course/${req.params.courseId}/details`)
 
@@ -83,14 +82,14 @@ exports.postDeleteCourse = async (req, res) => {
     if(!courseUtils.isTutorialOwner(req.user, tutorial)){
         res.redirect('/404')
     }
-   await courceService.deleteCourse(req.params.courseId)
+   await hotelService.deleteCourse(req.params.courseId)
    res.redirect('/')
 }
 
 exports.postEnrollCourse = async (req, res) => {
     const enrolledUser = req.user._id
     console.log(enrolledUser)
-    const tutorial = await courceService.getOneCourse(req.params.courseId)
+    const tutorial = await hotelService.getOneCourse(req.params.courseId)
     tutorial.usersEnrolled.push(enrolledUser)
     await tutorial.save()
  

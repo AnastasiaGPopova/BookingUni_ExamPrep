@@ -17,11 +17,11 @@
                 <ul>
                     {{#if  isAuthenticated}}
                     <li><a href="/">Home</a></li>
-                    <li><a href="/create">Add +</a></li>
+                    <li><a href="/hotel/create">Add +</a></li>
                 </ul>
             <div class="right-container">
-                <a href="/logout" class="log-out">{{username}}</a>
-                <a href="" class="log-out">Logout</a>
+                <a href="/profile" class="log-out">{{username}}</a>
+                <a href="/logout" class="log-out">Logout</a>
             </div>
 
                     {{else}}
@@ -32,6 +32,14 @@
                 </ul>
             </div>
         </nav>
+
+        {{#if errors}}
+            <div class="notification errorBox">
+                {{#each errors}}
+                 <p>{{this}}</p>
+                {{/each}}
+            </div>
+            {{/if}}
 
         {{{body}}}
 
