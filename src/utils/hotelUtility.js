@@ -1,6 +1,5 @@
-const Tutorial = require('../models/Hotel.js')
-
-exports.isTutorialOwner = (user, course) => {
+const Hotel = require('../models/Hotel.js')
+exports.isHotelOwner = (user, course) => {
     let isOwner = false
     if(user){
         if(user._id == course.owner._id){
@@ -11,13 +10,13 @@ exports.isTutorialOwner = (user, course) => {
 }
 
 
-exports.isEnrolled = async (userId, courseId) => {
-    let isEnrolled = false
-    const tutorial = await Tutorial.findById(courseId)
-    const enrolledUser = tutorial.usersEnrolled.find(x=> x == userId )
+exports.isBooked = async (userId, hotelId) => {
+    let isBooked = false
+    const hotel = await Hotel.findById(hotelId)
+    const bookedHotels = hotel.bookedByUsers.find(x=> x == userId )
 
-    if(enrolledUser){
-        isEnrolled = true
+    if(bookedHotels){
+        isBooked = true
     }
-    return isEnrolled
+    return isBooked
 }

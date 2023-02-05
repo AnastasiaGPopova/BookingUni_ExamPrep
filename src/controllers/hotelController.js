@@ -1,4 +1,5 @@
 const Hotel = require('../models/Hotel.js')
+const User = require('../models/User')
 const hotelService = require('../services/hotelService.js')
 const hotelUtility = require('../utils/hotelUtility.js')
 const parser = require('../utils/parser')
@@ -11,12 +12,12 @@ exports.getHotelCreationPage = (req,res) => {
 
 exports.postCreatedHotel = async (req, res) => {
 
-    
+
     const name = req.body.hotel
     const city = req.body.city
     const freeRooms = req.body["free-rooms"]
     const imageUrl = req.body.imgUrl
-    console.log(name)
+
     try{
         if(!name || !city || !freeRooms || !imageUrl){
             throw new Error ("All fields are requiered!")
@@ -35,34 +36,34 @@ exports.postCreatedHotel = async (req, res) => {
 
 }
 
-// exports.getDetails = async (req, res) => {
+exports.getDetails = async (req, res) => {
 
-//     const isEnrolled = await courseUtils.isEnrolled(req.user._id, req.params.courseId)
+    let currentHotel = await Hotel.findById(req.params.hotelId)//it makes a request to the DB and gives us back all accessories with all details and infos/not only the ID/
+                                .populate('owner')
+                                .lean()
 
-//     let currentCourse = await Tutorial.findById(req.params.courseId)//it makes a request to the DB and gives us back all accessories with all details and infos/not only the ID/
-//                                 .populate('owner')
-//                                 .lean()
+    const isOwner = hotelUtility.isHotelOwner(req.user, currentHotel)
+    const isBooked = await hotelUtility.isBooked(req.user._id, req.params.hotelId)
+  
 
-//     if(!currentCourse){
-//         return res.redirect('/404')
-//     }
+    if(!currentHotel){
+        return res.redirect('/404')
+    }
 
-//     let isOwner = false
-//     let isLogged = false
+    res.render('details', {currentHotel, isOwner, isBooked})
 
-//     if(req.user){
-//       isLogged = true
+}
 
-//       if(currentCourse.owner._id == req.user._id){
-//         isOwner = true
-//       }
-//     } 
+exports.getBooked = async (req, res) => {
+    const currentHotel = await hotelService.getOneHotelByID(req.params.hotelId)
+    currentHotel.bookedByUsers.push(req.user._id)
+    currentHotel.freeRooms--
 
-//     res.render('details', {currentCourse, isOwner, isEnrolled})
+    await currentHotel.save()
 
-// }
+     res.redirect(`/hotel/${req.params.hotelId}/details`)
 
-
+}
 
 // exports.getEditCoursePage = async (req, res) => {
 

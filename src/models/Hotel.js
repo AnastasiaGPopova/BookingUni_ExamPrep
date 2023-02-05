@@ -4,7 +4,6 @@ const hotelSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true,
-        unique: true,
         minLength: [4, "Hotel name must be at least 4 chars long"]
     }, 
     city: {
@@ -40,12 +39,12 @@ const hotelSchema = new mongoose.Schema({
     }
 })
 
-hotelSchema.index({name: 1}, {
-    collection: {
-        locale: 'en',
-        strength: 2,
-    }
- })
+// hotelSchema.index({name: 1}, {
+//     collection: {
+//         locale: 'en',
+//         strength: 2,
+//     }
+//  })
 
 const Hotel = mongoose.model('Hotel', hotelSchema)
 module.exports = Hotel

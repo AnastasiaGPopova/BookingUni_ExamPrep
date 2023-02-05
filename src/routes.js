@@ -27,7 +27,15 @@ router.post('/login', authController.postLoginUser)
 router.get('/hotel/create', isAuthenticated, hotelController.getHotelCreationPage)
 router.post('/hotel/create', isAuthenticated, hotelController.postCreatedHotel)
 
-// router.get('/course/:hotelId/details', hotelController.getDetails)
+
+router.get('/hotel/:hotelId/details', isAuthenticated, hotelController.getDetails)
+
+
+
+router.get('/hotel/:hotelId/book', hotelController.getBooked)
+
+router.get('/profile', homeController.getProfilePage)
+
 
 // //Edit Page
 // router.get('/course/:hotelId/edit', isAuthenticated, hotelController.)
